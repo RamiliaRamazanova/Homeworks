@@ -1,0 +1,85 @@
+{\rtf1\ansi\ansicpg1251\cocoartf2580
+\cocoatextscaling0\cocoaplatform0{\fonttbl\f0\fswiss\fcharset0 Helvetica;\f1\fmodern\fcharset0 Courier;}
+{\colortbl;\red255\green255\blue255;}
+{\*\expandedcolortbl;;}
+\paperw11900\paperh16840\margl1440\margr1440\vieww18580\viewh8400\viewkind0
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+
+\f0\fs24 \cf0 from news.models import *\
+u1 = User.objects.create_user('Lyolek')\
+u2 = User.objects.create_user('Bolek')\
+Author.objects.create(authorUser=u1)\
+Author.objects.create(authorUser=u2)\
+Category.objects.create(categoryName = '\uc0\u1057 \u1087 \u1086 \u1088 \u1090 ')\
+Category.objects.create(categoryName = '\uc0\u1055 \u1086 \u1083 \u1080 \u1090 \u1080 \u1082 \u1072 ')\
+Category.objects.create(categoryName = '\uc0\u1069 \u1082 \u1086 \u1085 \u1086 \u1084 \u1080 \u1082 \u1072 ')\
+Category.objects.create(categoryName = '\uc0\u1050 \u1091 \u1083 \u1100 \u1090 \u1091 \u1088 \u1072 ')\
+author = Author.objects.get(id=1)\
+Post.objects.create(postAuthor=author, categoryType = 'NW', postTitle = '\uc0\u1042 \u1072 \u1078 \u1085 \u1072 \u1103  \u1085 \u1086 \u1074 \u1086 \u1089 \u1090 \u1100 !', postText = '\u1053 \u1072  \u1089 \u1072 \u1084 \u1086 \u1084  \u1076 \u1077 \u1083 \u1077  - \u1085 \u1077 \u1074 \u1072 \u1078 \u1085 \u1072 \u1103  \u1085 \u1086 \u1074 \u1086 \u1089 \u1090 \u1100 ...')\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+\cf0 author = Author.objects.get(id=2)\
+Post.objects.create(postAuthor=author, categoryType = 'AR', postTitle = '\uc0\u1057 \u1090 \u1072 \u1090 \u1100 \u1103  \u1087 \u1088 \u1086  \u1073 \u1072 \u1088 \u1072 \u1085 \u1086 \u1074 ', postText = '\u1053 \u1072  \u1089 \u1072 \u1084 \u1086 \u1084  \u1076 \u1077 \u1083 \u1077  - \u1085 \u1077  \u1087 \u1088 \u1086  \u1073 \u1072 \u1088 \u1072 \u1085 \u1086 \u1074 ')\
+Post.objects.create(postAuthor=author, categoryType = 'AR', postTitle = '\uc0\u1057 \u1090 \u1072 \u1090 \u1100 \u1103  \u1087 \u1088 \u1086  \u1088 \u1072 \u1082 \u1091 \u1096 \u1082 \u1080 ', postText = '\u1047 \u1076 \u1077 \u1089 \u1100  \u1076 \u1077 \u1081 \u1089 \u1090 \u1074 \u1080 \u1090 \u1077 \u1083 \u1100 \u1085 \u1086  \u1089 \u1090 \u1072 \u1090 \u1100 \u1103  \u1087 \u1088 \u1086  \u1088 \u1072 \u1082 \u1091 \u1096 \u1082 \u1080 ')\
+Post.objects.get(id=1).postCategory.add(Category.objects.get(id=1))\
+Post.objects.get(id=1).postCategory.add(Category.objects.get(id=4))\
+Post.objects.get(id=2).postCategory.add(Category.objects.get(id=2))\
+Post.objects.get(id=3).postCategory.add(Category.objects.get(id=3))\
+Comment.objects.create(commentPost = Post.objects.get(id=1), commentUser = Author.objects.get(id=1).authorUser, text = '\uc0\u1050 \u1086 \u1084 \u1084 \u1077 \u1085 \u1090 \u1072 \u1088 \u1080 \u1081 ')\
+Comment.objects.create(commentPost = Post.objects.get(id=1), commentUser = Author.objects.get(id=2).authorUser, text = '\uc0\u1053 \u1077 \u1083 \u1080 \u1094 \u1077 \u1087 \u1088 \u1080 \u1103 \u1090 \u1085 \u1099 \u1081  \u1082 \u1086 \u1084 \u1084 \u1077 \u1085 \u1090 \u1072 \u1088 \u1080 \u1081 ')\
+Comment.objects.create(commentPost = Post.objects.get(id=2), commentUser = Author.objects.get(id=1).authorUser, text = '\uc0\u1055 \u1088 \u1080 \u1103 \u1090 \u1085 \u1099 \u1081  \u1082 \u1086 \u1084 \u1084 \u1077 \u1085 \u1090 \u1072 \u1088 \u1080 \u1081 ')\
+Comment.objects.create(commentPost = Post.objects.get(id=3), commentUser = Author.objects.get(id=1).authorUser, text = '\uc0\u1061 \u1074 \u1072 \u1083 \u1077 \u1073 \u1085 \u1099 \u1081   \u1082 \u1086 \u1084 \u1084 \u1077 \u1085 \u1090 \u1072 \u1088 \u1080 \u1081 ')\
+Comment.objects.get(id=1).like()\
+Comment.objects.get(id=1).like()\
+Comment.objects.get(id=2).like()\
+Comment.objects.get(id=3).like()\
+Comment.objects.get(id=4).dislike()\
+Comment.objects.get(id=2).dislike()\
+Post.objects.get(id=1).dislike()\
+Post.objects.get(id=1).dislike()\
+Post.objects.get(id=1).dislike()\
+Post.objects.get(id=1).like()\
+Post.objects.get(id=2).like()\
+Post.objects.get(id=2).like()\
+Post.objects.get(id=3).like()\
+u1 = Author.objects.get(id=1)\
+u1.update_rating()\
+u2 = Author.objects.get(id=2)\
+u2.update_rating()\
+a = Author.objects.order_by('-authorRating')[:1]\
+\
+for i in a:\
+...     i.authorUser.username\
+...     i.authorRating\
+\
+c = Post.objects.filter(categoryType='AR').order_by('-postRating')[:1]\
+\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+
+\f1\fs26 \cf0 for i in c:\
+...     i.dateCreation\
+...     i.postAuthor.authorUser.username\
+...     i.postRating\
+...     i.postTitle\
+...     i.preview()\
+\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+\cf0 d = c.values()[0]['id']\
+com = Comment.objects.filter(commentPost_id = d)\
+\
+
+\f0\fs24  for i in com:\
+...     i.dateCreation\
+...     i.commentUser.username\
+...     i.commentRating\
+...     i.text\
+... \
+\
+\
+\
+\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+\cf0 \
+\
+\
+\
+}
