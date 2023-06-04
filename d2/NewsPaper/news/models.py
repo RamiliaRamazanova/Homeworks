@@ -19,10 +19,21 @@ class Author(models.Model):
         self.authorRating = pRat * 3 + cRat
         self.save()
 
+    def __str__(self):
+        return self.authorUser
+
+    class Meta:
+        verbose_name = 'Автор'
+        verbose_name_plural = 'Авторы'
 
 class Category(models.Model):
     categoryName = models.CharField(max_length=32, unique=True)
 
+    def __str__(self):
+        return self.categoryName
+    class Meta:
+        verbose_name = 'Категория'
+        verbose_name_plural = 'Категории'
 
 class Post(models.Model):
     postAuthor = models.ForeignKey(Author, on_delete=models.CASCADE)
@@ -51,10 +62,20 @@ class Post(models.Model):
     def preview(self):
         return self.postText[0:123] + '...'
 
+    def __str__(self):
+        return f"{self.postTitle}"
+
+    class Meta:
+        verbose_name = 'Пост'
+        verbose_name_plural = 'Посты'
 
 class PostCategory(models.Model):
     post = models.ForeignKey(Post, on_delete=models.CASCADE)
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
+
+    class Meta:
+        verbose_name = 'Категория постов'
+        verbose_name_plural = 'Категории постов'
 
 
 class Comment(models.Model):
@@ -71,3 +92,10 @@ class Comment(models.Model):
     def dislike(self):
         self.commentRating -= 1
         self.save()
+
+    def __str__(self):
+        return self.text
+
+    class Meta:
+        verbose_name = 'Комментарий'
+        verbose_name_plural = 'Комментарии'

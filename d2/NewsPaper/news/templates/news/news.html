@@ -1,0 +1,24 @@
+{% extends 'flatpages/default.html' %}
+{% load custom_filters %}
+
+{% block title %}
+News
+{% endblock title %}
+
+<!-- В контенте на странице мы выводим все посты -->
+{% block content %}
+<h1>Всего Новостей {{ news|length }}</h1>
+<br>
+<br>
+{% if news %}
+    {% for post in news %}
+        <h2>{{ post.postTitle|censor }}</h2>
+        <h3>{{ post.dateCreation|date:'d.m.Y' }}</h3>
+        <h3>{{ post.postText|truncatechars:20|censor }}</h3>
+        <br>
+        <br>
+    {% endfor %}
+{% else %}
+    <h2>Пока нет новостей :(</h2>
+{% endif %}
+{% endblock content %}
