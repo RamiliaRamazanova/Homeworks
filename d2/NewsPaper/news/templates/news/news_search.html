@@ -9,10 +9,20 @@ News
 
 <!-- В контенте на странице мы выводим все посты -->
 {% block content %}
-<h1>Всего новостей {{ news|length }}</h1>
+<h1>Всего новостей на странице {{ news|length }}</h1>
 <br>
 <br>
 
+{# Добавляем форму, которая объединяет набор полей, которые будут отправляться в запросе #}
+<form action="" method="get">
+    {{ filterset.form.non_field_errors }}
+    {# Переменная, которую мы передали через контекст, может сгенерировать нам форму с полями #}
+    {{ filterset.form.as_p }}
+    {# Добавим кнопку отправки данных формы #}
+    <input type="submit" class="mt-3 btn-primary" value="Найти" />
+</form>
+
+<hr>
 
 {% if news %}
     {% for post in news %}
