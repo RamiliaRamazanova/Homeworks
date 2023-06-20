@@ -1,5 +1,6 @@
 # Импортируем класс, который говорит нам о том,
 # что в этом представлении мы будем выводить список объектов из БД
+from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from django.urls import reverse_lazy
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 
@@ -49,22 +50,25 @@ class PostDetail(DetailView):
     context_object_name = 'post'
 
 
-class PostCreate(CreateView):
-    # Указываем нашу разработанную форму
-    form_class = PostForm
-    # модель
-    model = Post
-    # и новый шаблон, в котором используется форма.
-    template_name = 'post_edit.html'
-
-
-class PostUpdate(UpdateView):
+class PostCreate(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
+    raise_exception = True
+    permission_required = ('news.add_post',)
     form_class = PostForm
     model = Post
     template_name = 'post_edit.html'
 
 
-class PostDelete(DeleteView):
+class PostUpdate(LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
+    raise_exception = True
+    permission_required = ('news.change_post',)
+    form_class = PostForm
+    model = Post
+    template_name = 'post_edit.html'
+
+
+class PostDelete(LoginRequiredMixin, PermissionRequiredMixin, DeleteView):
+    raise_exception = True
+    permission_required = ('news.delete_post',)
     model = Post
     template_name = 'post_delete.html'
     success_url = reverse_lazy('post_list')
